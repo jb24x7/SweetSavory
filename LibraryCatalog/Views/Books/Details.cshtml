@@ -5,7 +5,23 @@
 @using LibraryCatalog.Models
 @model LibraryCatalog.Models.Book
 
-<h2>Item Details</h2>
+<div id="delete-modal" class="modal obscured">
+  <div class="modal-message">
+    <span>Are you sure you want to delete</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Title)</span>
+  </div>
+  <div class="button-area">
+    @using (Html.BeginForm("Delete", "Books", new { id = @Model.BookId }))
+    {
+      <button class="red" type="submit">Delete</button>
+    }
+  </div>
+  <div class="button-area">
+    <button onclick="hideModal('delete')">Cancel</button>
+  </div>
+</div>
+
+<h2>Book Details for <span class="highlighted">@Html.DisplayFor(model => model.Title)</span></h2>
 <hr />
 
 <h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)<h3>
@@ -17,6 +33,9 @@
     }
 </ul>
 <div class="button-footer">
+  
+  <button onclick="showModal('delete')" class="red">Delete Book</button>
+
   <hr />
   <a href='@Url.Action("Index")'>
     <button>Show all Books</button>

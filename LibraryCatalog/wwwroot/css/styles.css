@@ -395,3 +395,52 @@ button:active {
 .capsule-list form {
 	min-width: unset;
 }
+
+.modal {
+	position: absolute;
+	min-width: 20rem;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	border: var(--small-border);
+	box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.3);
+	display: grid;
+	grid-template-columns: 1f 1fr;
+	grid-template-rows: 1fr 1fr var(--header-height);
+	gap: 1.5rem;
+	text-align: center;
+	padding: calc(Var(--header-height) / 2);
+	transition: scale 300ms ease, opacity 200ms ease;
+	z-index: 1;
+}
+
+.modal > .modal-message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.modal > .modal-message > .highlighted {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.modal.obscured {
+	scale: 0.95;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.modal .button-area {
+	align-items: center;
+	justify-content: center;
+}
+
+.modal button:not(.red) {
+	padding: 1rem 3rem;
+}
+
+.modal#delete-modal {
+	background-color: rgb(223, 205, 205);
+}
