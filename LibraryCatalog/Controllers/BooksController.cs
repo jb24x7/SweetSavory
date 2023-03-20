@@ -57,16 +57,44 @@ namespace LibraryCatalog.Controllers
 
     public ActionResult Edit(int id)
     {
-      Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      Book thisBook = _db.Books
+                      .Include(author => author.AuthorBooks)
+                      .ThenInclude(join => join.Author)
+                      .FirstOrDefault(book => book.BookId == id);
+
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "FirstName", "LastName");
       return View(thisBook);
     }
 
     [HttpPost]
-    public ActionResult Edit(Book book)
+    public ActionResult Edit(Book book, int AuthorId)
     {
-      _db.Books.Update(book);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      if (!ModelState.IsValid)
+      {
+        return View(book);
+      }
+      else
+      {
+        _db.Books.Update(book);
+        _db.SaveChanges();
+
+
+
+
+      #nullable enable
+      AuthorBook? authorBooks = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == AuthorId && join.AuthorId == book.BookId));
+      #nullable disable
+      if (authorBooks == null && AuthorId != 0)
+      {
+        _db.AuthorBooks.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
+        _db.SaveChanges();
+      }
+
+
+
+
+        return RedirectToAction("Index");
+      }
     }
 
     public ActionResult Delete(int id)

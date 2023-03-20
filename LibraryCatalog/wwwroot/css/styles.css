@@ -409,7 +409,7 @@ button:active {
 	grid-template-rows: 1fr 1fr var(--header-height);
 	gap: 1.5rem;
 	text-align: center;
-	padding: calc(Var(--header-height) / 2);
+	padding: calc(var(--header-height) / 2);
 	transition: scale 300ms ease, opacity 200ms ease;
 	z-index: 1;
 }
@@ -442,5 +442,5 @@ button:active {
 }
 
 .modal#delete-modal {
-	background-color: rgb(223, 205, 205);
+	background-color: rgb(76, 64, 64);
 }

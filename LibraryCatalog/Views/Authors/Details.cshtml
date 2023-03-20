@@ -33,7 +33,7 @@
     <p class="empty-message">This Author does not have any Books listed yet!</p>
   } else {
     @foreach (AuthorBook authorBook in Model.AuthorBooks) {
-      <li>@authorBook.Book.Title</li>
+      <li><a href='@Url.Action("Details", "Books", new { id = authorBook.Book.BookId})'>@authorBook.Book.Title</a></li>
     }
   }
   <a href='@Url.Action("AddBook", new { id = Model.AuthorId })'>
