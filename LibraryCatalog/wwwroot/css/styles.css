@@ -1,0 +1,99 @@
+*, * *, * * * {
+	box-sizing: border-box;
+}
+
+hr {
+	width: 100%;
+}
+
+main {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1rem;
+	margin: 1rem;
+	transition: all 300ms ease;
+	transition-delay: 100ms;
+}
+
+main.obscured {
+	opacity: 0;
+	transform: var(--slide-left);
+}
+
+header, footer {
+	width:100%;
+	background:var(--header-color);
+  color: var(--header-text-color);
+  display: flex;
+  align-items: center;
+}
+
+header {
+  height: var(--header-height);
+  padding: 1rem 0 1rem 1rem;
+  top: 0;
+	justify-content: space-between;
+}
+
+header h1 {
+  font-size: 1.25rem;
+}
+
+header a {
+	color: unset;
+}
+
+a {
+	color: var(--link-text-color);
+	text-decoration: none;
+	font-weight: bold;
+	transition: text-shadow 400ms ease;
+}
+
+button {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 1rem;
+	background-color: var(--button-color);
+	color: #eee;
+	cursor: pointer;
+	transition: color 400ms ease, background-color 200ms ease;
+  border: var(--small-border);
+}
+
+form > button {
+	width: 12rem;
+	align-self: center;
+}
+
+button.green {
+	background-color: green;
+}
+
+button.yellow {
+	background-color: rgb(152, 152, 0);
+	min-width: 5.5rem;
+}
+
+button.red {
+	background-color: rgb(159, 0, 0);
+	width: max-content;
+	min-width: 5.5rem;
+}
+
+button:hover {
+	color: rgb(169, 236, 246);
+	background-color: blue;
+}
+button:active {
+	scale: 0.9;
+}
+
+.button-footer {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
