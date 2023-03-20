@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model LibraryCatalog.Models.Book
+
+<h3>Add a new Book</h3>
+
+@using (Html.BeginForm())
+{
+  <div class="form-row">
+    @Html.LabelFor(model => model.Title) @Html.TextBoxFor(model => model.Title)
+  </div>
+  
+  <button class="green" type="submit">Add new book</button>
+}
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all books</button>
+  </a>
+</div>

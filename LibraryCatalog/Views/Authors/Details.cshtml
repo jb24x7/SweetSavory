@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+}
+
+@using LibraryCatalog.Models
+@model LibraryCatalog.Models.Author
+
+<h2>Author Details for <span class="highlighted">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</span></h2>
+<hr />
+
+<h3>Name: @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)<h3>
+
+<h3>Books:</h3>
+<ul>
+  @if(@Model.AuthorBooks.Count == 0)
+  {
+    <p class="empty-message">This Author does not have any Books listed yet!</p>
+  } else {
+    @foreach (AuthorBook authorBook in Model.AuthorBooks) {
+      <li>@authorBook.Book.Title</li>
+    }
+  }
+  <a href='@Url.Action("AddBook", new { id = Model.AuthorId })'>
+    <button class="green">Add a Book for Author</button>
+  </a>
+</ul>
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all Authors</button>
+  </a>
+</div>

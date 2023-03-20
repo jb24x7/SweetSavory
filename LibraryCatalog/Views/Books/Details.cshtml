@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@using LibraryCatalog.Models
+@model LibraryCatalog.Models.Book
+
+<h2>Item Details</h2>
+<hr />
+
+<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)<h3>
+
+<ul class="capsule-list">
+    Author(s): 
+    @foreach (AuthorBook authorBook in Model.AuthorBooks) {
+      <li><a href='@Url.Action("Details", "Authors", new { id = authorBook.Author.AuthorId})'>@authorBook.Author.FirstName @authorBook.Author.LastName</a></li>
+    }
+</ul>
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all Books</button>
+  </a>
+</div>

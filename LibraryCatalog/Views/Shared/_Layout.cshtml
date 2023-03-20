@@ -9,6 +9,13 @@
   </head>
   <body>
     @await Html.PartialAsync("Header")
-    <main>@RenderBody()</main>
+    <main class="obscured">@RenderBody()</main>
   </body>
 </html>
+
+<script>
+  window.addEventListener('load', async () => {
+    document.documentElement.style.setProperty('--actual-height', window.innerHeight + 'px');
+    document.querySelector('main').classList.remove('obscured');
+  });
+</script>

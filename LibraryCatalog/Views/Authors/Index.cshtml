@@ -14,10 +14,10 @@
   else
   {
     <ul class="capsule-list">
-    @foreach (Author author in Model)
-    {
-      <li>@Html.ActionLink($"{author.FirstName} {author.LastName}", "Details", new { id = author.AuthorId })</li>
-    }
+      @foreach (Author author in Model)
+      {
+        <li>@Html.ActionLink($"{author.FirstName} {author.LastName}", "Details", new { id = author.AuthorId })</li>
+      }
     </ul>
   }
 </div>

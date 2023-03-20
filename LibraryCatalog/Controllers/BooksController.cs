@@ -29,16 +29,19 @@ namespace LibraryCatalog.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Book book)
+    public ActionResult Create(Book book, int authorId)
     {
       if (!ModelState.IsValid)
       {
-          return View(book);
+        return View(book);
       }
       else
       {
+
+
         _db.Books.Add(book);
         _db.SaveChanges();
+
         return RedirectToAction("Index");
       }
     }
@@ -47,7 +50,7 @@ namespace LibraryCatalog.Controllers
     {
       Book thisBook = _db.Books
                       .Include(book => book.AuthorBooks)
-                      .ThenInclude(join => join.Book)
+                      .ThenInclude(join => join.Author)
                       .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }

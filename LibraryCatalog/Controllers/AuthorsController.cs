@@ -83,20 +83,24 @@ namespace LibraryCatalog.Controllers
 
     public ActionResult AddBook(int id)
     {
-      Author thisAuthor = _db.Authors.FirstOrDefault(authors => authors.AuthorId == id);
+      Author thisAuthor = _db.Authors
+                          .Include(author => author.AuthorBooks)
+                          .ThenInclude(join => join.Book)
+                          .FirstOrDefault(authors => authors.AuthorId == id);
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
+
       return View(thisAuthor);
     }
 
     [HttpPost]
-    public ActionResult AddBook(Author author, int tagId)
+    public ActionResult AddBook(Author author, int BookId)
     {
       #nullable enable
-      AuthorBook? authorBooks = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == tagId && join.AuthorId == author.AuthorId));
+      AuthorBook? authorBooks = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == BookId && join.AuthorId == author.AuthorId));
       #nullable disable
-      if (authorBooks == null && tagId != 0)
+      if (authorBooks == null && BookId != 0)
       {
-        _db.AuthorBooks.Add(new AuthorBook() { BookId = tagId, AuthorId = author.AuthorId });
+        _db.AuthorBooks.Add(new AuthorBook() { BookId = BookId, AuthorId = author.AuthorId });
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = author.AuthorId });
