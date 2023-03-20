@@ -1,0 +1,31 @@
+@using LibraryCatalog.Models;
+
+<header>
+  <a href='@Url.Action("Index", "Home")'>
+    <h1>Library Catalog</h1>
+  </a>
+
+  @if (User.Identity.IsAuthenticated)
+{
+  <div id="login-status-message"><span>logged in as</span><span class="highlighted">
+    @User.Identity.Name
+  </span></div>
+  @using (Html.BeginForm("LogOff", "Account"))
+  {
+    <input type="Submit" class="btn btn-primary" value="Log out" />
+  }
+}
+else
+{
+  <div id="menu-button-area">
+    <div>@Html.ActionLink("Register", "Register")</div>
+    <div>@Html.ActionLink("Log in", "Login")</div>
+  </div>
+}
+  @* <div id="login-status-message"><span>logged in as</span><span class="highlighted">
+    @User.Identity.Name
+  </span></div> *@
+  @* <div id="menu-button-area">
+    <button onclick="document.body.classList.toggle('menu-open')" id="menu-button">Settings</button>
+  </div> *@
+</header>

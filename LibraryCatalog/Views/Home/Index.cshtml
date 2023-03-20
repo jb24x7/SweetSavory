@@ -3,3 +3,11 @@
 }
 
 <div>I have a brass waterbed</div>
+<div class="button-area">
+  <a href='@Url.Action("Index", "Books")'>
+    <button>Manage Books</button>
+  <a href='@Url.Action("Index", "Authors")'>
+    <button>Manage Authors</button>
+  </a>
+</div>
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
