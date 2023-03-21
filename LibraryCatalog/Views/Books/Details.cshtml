@@ -8,7 +8,7 @@
 <div id="delete-modal" class="modal obscured">
   <div class="modal-message">
     <span>Are you sure you want to delete</span>
-    <span class="highlighted">@Html.DisplayFor(model => model.Title)</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Title)?</span>
   </div>
   <div class="button-area">
     @using (Html.BeginForm("Delete", "Books", new { id = @Model.BookId }))

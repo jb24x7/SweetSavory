@@ -6,25 +6,31 @@
   </a>
 
   @if (User.Identity.IsAuthenticated)
-{
-  <div id="login-status-message"><span>logged in as</span><span class="highlighted">
-    @User.Identity.Name
-  </span></div>
-  @using (Html.BeginForm("LogOff", "Account"))
   {
-    <input type="Submit" class="btn btn-primary" value="Log out" />
+    <div id="login-status-message">
+      <span style="font-size: 85%">logged in as</span>
+      <span class="highlighted">@User.Identity.Name </span>
+    </div>
+    <div class="button-area">
+    @using (Html.BeginForm("LogOff", "Account"))
+      {
+        <button type="Submit" class="logout">Log out</button>
+      }
+    </div>
   }
-}
-else
-{
-  <div id="menu-button-area">
-    <div>@Html.ActionLink("Register", "Register")</div>
-    <div>@Html.ActionLink("Log in", "Login")</div>
-  </div>
-}
-  @* <div id="login-status-message"><span>logged in as</span><span class="highlighted">
-    @User.Identity.Name
-  </span></div> *@
+  else
+  {
+    <div class="button-area">
+      <a href='@Url.Action("Register", "Account")'>
+        <button class="login register">Register</button>
+      </a>
+      @* <button onclick="showModal('register')" class="login register">Register</button> *@
+      
+      <a href='@Url.Action("Login", "Account")'>
+        <button class="login">Log in</button>
+      </a>
+    </div>
+  }
   @* <div id="menu-button-area">
     <button onclick="document.body.classList.toggle('menu-open')" id="menu-button">Settings</button>
   </div> *@

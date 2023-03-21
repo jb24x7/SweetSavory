@@ -5,10 +5,11 @@
 @using LibraryCatalog.Models
 @model LibraryCatalog.Models.Author
 
-<h3>Add a new Book</h3>
+<h2>Add a new Book for Author <span class="highlighted">@Model.FirstName @Model.LastName</span></h2>
 
 <div>@foreach(AuthorBook book in Model.AuthorBooks) {
-  <div>book from foreach loop is @book.Book.Title</div>
+  <div>Already attributed: @book.Book.Title (in model as Model.AuthorBooks[i].Book.Title)</div>
+  <p></p>
 }</div>
 
 @using (Html.BeginForm())

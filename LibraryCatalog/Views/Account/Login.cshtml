@@ -9,6 +9,8 @@
 <h2>Log in with your account</h2>
 <hr />
 
+<div class="view-body login">
+
 @if(!ViewData.ModelState.IsValid) 
 {
   @Html.ValidationSummary("Please fix the following error(s) and then resubmit the form:") 
@@ -16,14 +18,22 @@
 
 @using (Html.BeginForm())
 {
-  @Html.LabelFor(m => m.Email)
-  @Html.TextBoxFor(m => m.Email)
-
-  @Html.LabelFor(m => m.Password)
-  @Html.EditorFor(m => m.Password)
-
-  <input type="submit" value="Log in" />
+  <div class="form-row">
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email)
+  </div>
+  <div class="form-row password">
+    @Html.LabelFor(m => m.Password)
+    @Html.EditorFor(m => m.Password)
+  </div>
+  <button class="login" type="submit">Log in</button>
 }
 
-<p>@Html.ActionLink("Register for an account", "Register")</p>
-<p>@Html.ActionLink("Back to accounts page", "Index")</p>
+</div>
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Back to Accounts page</button>
+  </a>
+</div>

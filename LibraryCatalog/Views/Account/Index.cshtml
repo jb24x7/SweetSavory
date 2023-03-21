@@ -4,17 +4,30 @@
 
 <h2>Authentication with Identity</h2>
 <hr />
-@if (User.Identity.IsAuthenticated)
-{
-  <p>Hello @User.Identity.Name!</p>
-  @using (Html.BeginForm("LogOff", "Account"))
+
+<div class="view-body">
+  @if (User.Identity.IsAuthenticated)
   {
-    <input type="Submit" class="btn btn-primary" value="Log out" />
+    <p>Hello @User.Identity.Name!</p>
+    @using (Html.BeginForm("LogOff", "Account"))
+    {
+      <button type="Submit" class="caution">Log out</button>
+    }
   }
-}
-else
-{
-  <p>@Html.ActionLink("Register", "Register")</p>
-  <p>@Html.ActionLink("Log in", "Login")</p>
-}
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+  else
+  {
+    <a href='@Url.Action("Register")'>
+      <button class="login register">Register</button>
+    </a>
+    <a href='@Url.Action("Login")'>
+      <button class="login">Log in</button>
+    </a>
+  }
+</div>
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index", "Home")'>
+    <button>Home</button>
+  </a>
+</div>

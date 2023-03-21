@@ -27,13 +27,17 @@
 <h3>Name: @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)<h3>
 
 <h3>Books:</h3>
-<ul>
+<ul class="author-book-list">
   @if(@Model.AuthorBooks.Count == 0)
   {
     <p class="empty-message">This Author does not have any Books listed yet!</p>
   } else {
     @foreach (AuthorBook authorBook in Model.AuthorBooks) {
-      <li><a href='@Url.Action("Details", "Books", new { id = authorBook.Book.BookId})'>@authorBook.Book.Title</a></li>
+        <a href='@Url.Action("Details", "Books", new { id = authorBook.Book.BookId})'>
+        <li class="author-book-list-item">
+          @authorBook.Book.Title
+        </li>
+        </a>
     }
   }
   <a href='@Url.Action("AddBook", new { id = Model.AuthorId })'>

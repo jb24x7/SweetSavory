@@ -19,7 +19,7 @@ namespace LibraryCatalog.Controllers
     public ActionResult Index()
     {
       List<Author> model = _db.Authors
-                        .ToList();
+                          .ToList();
       return View(model);
     }
 
@@ -87,6 +87,7 @@ namespace LibraryCatalog.Controllers
                           .Include(author => author.AuthorBooks)
                           .ThenInclude(join => join.Book)
                           .FirstOrDefault(authors => authors.AuthorId == id);
+
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
 
       return View(thisAuthor);
