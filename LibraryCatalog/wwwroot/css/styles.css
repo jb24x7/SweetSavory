@@ -126,6 +126,10 @@ header a {
 	color: unset;
 }
 
+header form {
+	width: unset;
+}
+
 #login-status-message {
 	color: #ffffff77;
 	display: flex;
