@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using LibraryCatalog.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCatalog.Controllers
 {
+  [Authorize]
   public class BooksController : Controller
   {
     private readonly LibraryCatalogContext _db;
@@ -16,6 +18,7 @@ namespace LibraryCatalog.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Book> model = _db.Books
@@ -55,6 +58,7 @@ namespace LibraryCatalog.Controllers
       return View(thisBook);
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Book thisBook = _db.Books

@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using LibraryCatalog.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCatalog.Controllers
 {
+  [Authorize]
   public class AuthorsController : Controller
   {
     private readonly LibraryCatalogContext _db;
@@ -16,6 +18,7 @@ namespace LibraryCatalog.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Author> model = _db.Authors
