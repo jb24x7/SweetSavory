@@ -15,7 +15,10 @@
   @Html.LabelFor(model => model.Title)
   @Html.EditorFor(model => model.Title)
 
-  @Html.DropDownList("AuthorId")
+  @Html.LabelFor(model => model.Copies)
+  @Html.EditorFor(model => model.Copies)
+
+  @* @Html.DropDownList("AuthorId") *@
 
   <input type="submit" value="Save" />
 }

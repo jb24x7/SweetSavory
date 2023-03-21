@@ -48,7 +48,7 @@ namespace LibraryCatalog.Controllers
         return RedirectToAction("Index");
       }
     }
-
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Book thisBook = _db.Books
@@ -82,9 +82,6 @@ namespace LibraryCatalog.Controllers
         _db.Books.Update(book);
         _db.SaveChanges();
 
-
-
-
       #nullable enable
       AuthorBook? authorBooks = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == AuthorId && join.AuthorId == book.BookId));
       #nullable disable
@@ -93,10 +90,6 @@ namespace LibraryCatalog.Controllers
         _db.AuthorBooks.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
         _db.SaveChanges();
       }
-
-
-
-
         return RedirectToAction("Index");
       }
     }
@@ -145,5 +138,13 @@ namespace LibraryCatalog.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     } 
+
+    [AllowAnonymous]
+    [HttpPost]
+    public ActionResult Find(string queryString)
+    {
+      List<Book> model = _db.Books.Where(model => model.Title.Contains(queryString)).ToList();
+      return View("Index", model);
+    }
   }
 }

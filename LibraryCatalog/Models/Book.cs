@@ -10,7 +10,7 @@ namespace LibraryCatalog.Models
     
     [Required(ErrorMessage = "Title can't be empty!")]
     public string Title { get; set; }
-    
+    public int Copies { get; set; }
     public List<AuthorBook> AuthorBooks { get; }
   }
 }

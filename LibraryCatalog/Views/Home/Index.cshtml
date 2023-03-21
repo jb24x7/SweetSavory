@@ -23,13 +23,19 @@
 
 <div class="home-list-area">
   <div class="home-list">
+
+    @using (Html.BeginForm("Find", "Authors", "post"))
+{
+  @Html.Label("Search Authors by First or Last Name:")
+  <p>@Html.TextBox("queryString")</p>
+  <p><input type="submit" value="Submit" class="btn btn-default" /></p>
+}
     <h2>All Authors:</h2>
     <ul class="simple-list">
       @foreach (var author in ViewBag.Authors) {
         <li>
           <div class="bold">@author.FirstName @author.LastName</div>&nbsp;<div class="italic">@(
             
-     
             $"{(author.AuthorBooks.Count == 0 ? "no books" : author.AuthorBooks.Count > 1 ? $"{author.AuthorBooks.Count} books" : $"{author.AuthorBooks.Count} book")}"
             
           )</div>
@@ -38,6 +44,14 @@
     </ul>
   </div>
   <div class="home-list">
+
+  @using (Html.BeginForm("Find", "Books", "post"))
+{
+  @Html.Label("Search Books:")
+  <p>@Html.TextBox("queryString")</p>
+  <p><input type="submit" value="Submit" class="btn btn-default" /></p>
+}
+
     <h2>All Books:</h2>
     <ul class="simple-list">
       @foreach (var book in ViewBag.Books) {

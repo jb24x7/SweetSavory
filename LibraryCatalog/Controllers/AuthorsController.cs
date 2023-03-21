@@ -45,7 +45,7 @@ namespace LibraryCatalog.Controllers
         return RedirectToAction("Index");
       }
     }
-
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Author thisAuthor = _db.Authors
@@ -90,9 +90,7 @@ namespace LibraryCatalog.Controllers
                           .Include(author => author.AuthorBooks)
                           .ThenInclude(join => join.Book)
                           .FirstOrDefault(authors => authors.AuthorId == id);
-
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
-
       return View(thisAuthor);
     }
 
@@ -118,5 +116,16 @@ namespace LibraryCatalog.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     } 
+
+
+    [AllowAnonymous]
+    [HttpPost]
+    public ActionResult Find(string queryString)
+    {
+      List<Author> model = _db.Authors
+                          .Where(model => model.LastName.Contains(queryString) || model.FirstName.Contains(queryString))
+                          .ToList();
+        return View("Index", model);
+    }
   }
 }

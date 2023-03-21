@@ -32,9 +32,15 @@
       <li><a href='@Url.Action("Details", "Authors", new { id = authorBook.Author.AuthorId})'>@authorBook.Author.FirstName @authorBook.Author.LastName</a></li>
     }
 </ul>
+
+<p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
 <div class="button-footer">
   
   <button onclick="showModal('delete')" class="red">Delete Book</button>
+
+  <a href='@Url.Action("Edit")'>
+    <button>Edit Book</button>
+  </a>
 
   <hr />
   <a href='@Url.Action("Index")'>

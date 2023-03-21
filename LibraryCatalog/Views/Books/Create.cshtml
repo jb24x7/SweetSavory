@@ -10,6 +10,7 @@
 {
   <div class="form-row">
     @Html.LabelFor(model => model.Title) @Html.TextBoxFor(model => model.Title)
+    @Html.LabelFor(model => model.Copies) @Html.EditorFor(model => model.Copies)
   </div>
   
   <button class="green" type="submit">Add new book</button>
