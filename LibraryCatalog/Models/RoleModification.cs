@@ -1,0 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace LibraryCatalog.Models
+{
+    public class RoleModification
+    {
+        [Required]
+        public string RoleName { get; set; }
+        public string RoleId { get; set; }
+        
+        #nullable enable
+        public string[]? AddIds { get; set; }
+        public string[]? DeleteIds { get; set; }
+    }
+}
