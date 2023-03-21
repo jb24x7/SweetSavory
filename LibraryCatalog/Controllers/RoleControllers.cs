@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using LibraryCatalog.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LibraryCatalog.Controllers
 {
@@ -11,11 +12,13 @@ namespace LibraryCatalog.Controllers
   {
     private RoleManager<IdentityRole> roleManager;
     private UserManager<ApplicationUser> userManager;
-    public RoleController(RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg)
+    private LibraryCatalogContext _db;
+    public RoleController(RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg, LibraryCatalogContext db)
     
     {
         roleManager = roleMgr;
         userManager = userMrg;
+        _db = db;
     }
 
     public ViewResult Index() => View(roleManager.Roles);
@@ -58,24 +61,23 @@ namespace LibraryCatalog.Controllers
             ModelState.AddModelError("", "No role found");
         return View("Index", roleManager.Roles);
     }
-
-    public async Task<IActionResult> Update(string id)
-    {
-        IdentityRole role = await roleManager.FindByIdAsync(id);
-        List<ApplicationUser> members = new List<ApplicationUser>();
-        List<ApplicationUser> nonMembers = new List<ApplicationUser>();
-        foreach (ApplicationUser user in userManager.Users)
+        public async Task<IActionResult> Update(string id)
         {
-            var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
-            list.Add(user);
+            IdentityRole role = await roleManager.FindByIdAsync(id);
+            List<ApplicationUser> members = new List<ApplicationUser>();
+            List<ApplicationUser> nonMembers = new List<ApplicationUser>();
+            foreach (ApplicationUser user in userManager.Users.ToList())
+            {
+                var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                list.Add(user);
+            }
+            return View(new RoleEdit
+            {
+                Role = role,
+                Members = members,
+                NonMembers = nonMembers
+            });
         }
-        return View(new RoleEdit
-        {
-            Role = role,
-            Members = members,
-            NonMembers = nonMembers
-        });
-    }
 
     [HttpPost]
     public async Task<IActionResult> Update(RoleModification model)
@@ -112,3 +114,23 @@ namespace LibraryCatalog.Controllers
     }
   }
 }
+
+
+    // public async Task<IActionResult> Update(string id)
+    // {
+    //     IdentityRole role = await roleManager.FindByIdAsync(id);
+    //     List<ApplicationUser> members = _db.UserRoles.Where(role => role.id == id);
+    //     new List<ApplicationUser>();
+    //     List<ApplicationUser> nonMembers = new List<ApplicationUser>();
+    //     foreach (ApplicationUser user in userManager.Users)
+    //     {
+    //         var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+    //         list.Add(user);
+    //     }
+    //     return View(new RoleEdit
+    //     {
+    //         Role = role,
+    //         Members = members,
+    //         NonMembers = nonMembers
+    //     });
+    // }
