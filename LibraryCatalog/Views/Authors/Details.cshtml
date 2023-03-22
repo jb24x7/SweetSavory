@@ -49,7 +49,7 @@
 
   <button onclick="showModal('delete')" class="red">Delete Author</button>
 
-    <a href='@Url.Action("Edit")'>
+  <a href='@Url.Action("Edit", new { id = Model.AuthorId })'>
     <button>Edit Author</button>
   </a>
 

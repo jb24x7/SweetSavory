@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCatalog.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Admin")]
   public class AuthorsController : Controller
   {
     private readonly LibraryCatalogContext _db;

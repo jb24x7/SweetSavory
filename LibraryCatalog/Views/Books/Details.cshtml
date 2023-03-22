@@ -38,9 +38,11 @@
   
   <button onclick="showModal('delete')" class="red">Delete Book</button>
 
-  <a href='@Url.Action("Edit")'>
+  <a href='@Url.Action("Edit", new { id = Model.BookId })'>
     <button>Edit Book</button>
   </a>
+@* <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p> *@
+
 
   <hr />
   <a href='@Url.Action("Index")'>

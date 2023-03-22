@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCatalog.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Admin")]
   public class BooksController : Controller
   {
     private readonly LibraryCatalogContext _db;
@@ -58,15 +58,11 @@ namespace LibraryCatalog.Controllers
       return View(thisBook);
     }
 
-    [Authorize]
+    
     public ActionResult Edit(int id)
     {
       Book thisBook = _db.Books
-                      .Include(author => author.AuthorBooks)
-                      .ThenInclude(join => join.Author)
                       .FirstOrDefault(book => book.BookId == id);
-
-      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "FirstName", "LastName");
       return View(thisBook);
     }
 
