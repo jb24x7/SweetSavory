@@ -4,6 +4,8 @@
 
 @using LibraryCatalog.Models
 @model LibraryCatalog.Models.Book
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 
 <div id="delete-modal" class="modal obscured">
   <div class="modal-message">
@@ -36,7 +38,14 @@
 <p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
 <div class="button-footer">
   
-  <a href='@Url.Action("Edit", new { id = Model.BookId })'>Checkout Book</a>
+  @if (Model.ApplicationUser.Books.Contains(Model)) 
+  {
+    <a href='@Url.Action("Return", "Account", new {id = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId})'>Return Book</a>
+  }
+  else 
+  {
+  <a href='@Url.Action("Checkout", "Account", new {id = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId})'>Checkout Book</a>
+  }
   <button onclick="showModal('delete')" class="red">Delete Book</button>
 
   <a href='@Url.Action("Edit", new { id = Model.BookId })'>

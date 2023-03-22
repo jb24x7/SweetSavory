@@ -17,13 +17,12 @@
 
 @if (Model.Books.Count > 0)
 {
-
+<ul>
   @foreach (Book book in Model.Books)
   {
-    <td class="bold">@book.Copies</td>
-    <td>@book.Title</td>
+    <li>@book.Title</li>
   }
-}
+</ul>}
 else
 {
   <h3>No Books have been checked out!</h3>

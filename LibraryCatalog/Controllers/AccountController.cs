@@ -109,5 +109,21 @@ namespace LibraryCatalog.Controllers
                       .FirstOrDefault(user => user.Id == id);
       return View(thisUser);
     }
+
+        public ActionResult Checkout(string id, int bookId)
+    {
+                      ApplicationUser thisUser = _db.Users
+                      .Include(User => User.Books)
+                      .FirstOrDefault(user => user.Id == id);
+
+                      Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
+                      thisUser.Books.Add(thisBook);
+
+                      thisBook.Copies = (thisBook.Copies -1);
+                      _db.SaveChanges();
+
+
+                return RedirectToAction("Details", new {id = id});
+    }
   }
 }

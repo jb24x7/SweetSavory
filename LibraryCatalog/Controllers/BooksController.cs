@@ -54,6 +54,7 @@ namespace LibraryCatalog.Controllers
       Book thisBook = _db.Books
                       .Include(book => book.AuthorBooks)
                       .ThenInclude(join => join.Author)
+                      .Include(user => user.ApplicationUser)
                       .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }
