@@ -8,8 +8,7 @@ namespace LibraryCatalog.Models
   {
     public virtual List<Book> Books { get; set; }
 
-    [NotMapped]
-    public virtual List<Book> BooksHistory { get; set; }
+    public List<BooksHistory> JoinEntites { get; }
 
   }
 }

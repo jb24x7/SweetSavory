@@ -125,5 +125,21 @@ namespace LibraryCatalog.Controllers
 
                 return RedirectToAction("Details", new {id = id});
     }
+
+    //     public ActionResult Return(string id, int bookId)
+    // {
+    //                   ApplicationUser thisUser = _db.Users
+    //                   .Include(User => User.Books)
+    //                   .FirstOrDefault(user => user.Id == id);
+
+    //                   Book thisBook = _db.BooksHistory.FirstOrDefault(book => book.BookId == bookId);
+    //                   thisUser.Books.Add(thisBook);
+
+    //                   thisBook.Copies = (thisBook.Copies +1);
+    //                   _db.SaveChanges();
+
+
+    //             return RedirectToAction("Details", new {id = id});
+    // }
   }
 }
