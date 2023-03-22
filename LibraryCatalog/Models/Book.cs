@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryCatalog.Models
 {
@@ -12,5 +13,11 @@ namespace LibraryCatalog.Models
     public string Title { get; set; }
     public int Copies { get; set; }
     public List<AuthorBook> AuthorBooks { get; }
+
+
+
+    public string UserID { get; set; }
+    [ForeignKey("UserID")]
+    public virtual ApplicationUser ApplicationUser { get; set; }
   }
 }
