@@ -90,6 +90,18 @@
 
 </div>
 
+@inject SignInManager<ApplicationUser> SignInManager
+
+@* <h3>Hello @User.Identity.Name with the id @SignInManager.UserManager.GetUserId(User) *@
+
+<p>
+  <a href='@Url.Action("Details", "Account", new {id = SignInManager.UserManager.GetUserId(User)})'>
+    <button class="green">Account Details</button>
+  </a>
+
+</p>
+
+
 <hr />
 <div class="home-footer">
   <div class="button-area">

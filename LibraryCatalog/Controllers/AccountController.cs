@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using LibraryCatalog.Models;
 using System.Threading.Tasks;
 using LibraryCatalog.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryCatalog.Controllers
 {
@@ -93,9 +96,18 @@ namespace LibraryCatalog.Controllers
       return RedirectToAction("Index");
     }
 
-            public IActionResult AccessDenied()
-        {
-            return View();
-        }
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
+
+    public ActionResult Details(string id)
+    {
+      ApplicationUser thisUser = _db.Users
+                      .Include(User => User.Books)
+                      .FirstOrDefault(user => user.Id == id);
+      return View(thisUser);
+    }
   }
 }

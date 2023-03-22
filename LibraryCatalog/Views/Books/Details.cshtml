@@ -36,6 +36,7 @@
 <p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
 <div class="button-footer">
   
+  <a href='@Url.Action("Edit", new { id = Model.BookId })'>Checkout Book</a>
   <button onclick="showModal('delete')" class="red">Delete Book</button>
 
   <a href='@Url.Action("Edit", new { id = Model.BookId })'>

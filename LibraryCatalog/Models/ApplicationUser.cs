@@ -5,6 +5,7 @@ namespace LibraryCatalog.Models
 {
   public class ApplicationUser : IdentityUser
   {
-    public virtual ICollection<Book> Books { get; set; }
+    public virtual List<Book> Books { get; set; }
+
   }
 }

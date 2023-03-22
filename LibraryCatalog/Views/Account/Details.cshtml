@@ -1,0 +1,40 @@
+@{
+  Layout = "_Layout";
+}
+
+@model LibraryCatalog.Models.ApplicationUser
+
+
+@using Microsoft.AspNetCore.Identity
+@using LibraryCatalog.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+<h3>Hello @User.Identity.Name with the id @SignInManager.UserManager.GetUserId(User)</h3>
+
+
+<h3>Currently checked out books:</h3>
+
+
+@if (Model.Books.Count > 0)
+{
+
+  @foreach (Book book in Model.Books)
+  {
+    <td class="bold">@book.Copies</td>
+    <td>@book.Title</td>
+  }
+}
+else
+{
+  <h3>No Books have been checked out!</h3>
+}
+
+
+
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all books</button>
+  </a>
+</div>
