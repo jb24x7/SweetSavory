@@ -42,8 +42,7 @@ else
   {
     @if(join.Returned){
     <li>@join.Book.Title
-      || Checkout date: @join.CheckoutDate.ToShortDateString()
-      || Due date: @join.DueDate.ToShortDateString()
+      || Return date: @join.ReturnDate.ToShortDateString()
     </li>
     }
   }
