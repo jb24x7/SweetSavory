@@ -20,10 +20,32 @@
 <ul>
   @foreach (AppUserBook join in Model.JoinEntites)
   {
+    @if(!join.Returned){
     <li>@join.Book.Title
       || Checkout date: @join.CheckoutDate.ToShortDateString()
       || Due date: @join.DueDate.ToShortDateString()
     </li>
+    }
+  }
+</ul>}
+else
+{
+  <h3>No Books have been checked out!</h3>
+}
+
+<h3>Book history:</h3>
+
+@if (Model.JoinEntites.Count > 0)
+{
+<ul>
+  @foreach (AppUserBook join in Model.JoinEntites)
+  {
+    @if(join.Returned){
+    <li>@join.Book.Title
+      || Checkout date: @join.CheckoutDate.ToShortDateString()
+      || Due date: @join.DueDate.ToShortDateString()
+    </li>
+    }
   }
 </ul>}
 else

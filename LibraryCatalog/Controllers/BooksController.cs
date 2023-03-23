@@ -55,6 +55,7 @@ namespace LibraryCatalog.Controllers
                       .Include(book => book.AuthorBooks)
                       .ThenInclude(join => join.Author)
                       .Include(user => user.ApplicationUser)
+                      .ThenInclude(join => join.JoinEntites)
                       .FirstOrDefault(book => book.BookId == id);
       return View(thisBook);
     }

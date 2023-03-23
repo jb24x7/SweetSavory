@@ -7,7 +7,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
-<h3>Checkout Book</h3>
+<h3>Return Book</h3>
 
 <h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
 
@@ -17,11 +17,14 @@
     @foreach (AuthorBook authorBook in Model.AuthorBooks) {
       <li>@authorBook.Author.FirstName @authorBook.Author.LastName</li>
     }
-@using (Html.BeginForm("Checkout", "Account", new { userId = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId}, FormMethod.Post))
+@using (Html.BeginForm("Return", "Account", new { userId = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId}, FormMethod.Post))
 {
-      <input type="date" name="CheckoutDate">  
-  <button class="green" type="submit">Check Out</button>
+
+        <input type="date" name="ReturnDate">
+  <button class="green" type="submit">Return</button>
 }
+
+
 
 <div class="button-footer">
   <hr />

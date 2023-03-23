@@ -103,7 +103,6 @@ namespace LibraryCatalog.Controllers
         return View();
     }
 
-
     public ActionResult Details(string id)
     {
       ApplicationUser thisUser = _db.Users
@@ -113,56 +112,65 @@ namespace LibraryCatalog.Controllers
       return View(thisUser);
     }
 
-    //     public ActionResult Checkout(string id, int bookId)
-    // {
-    //                   ApplicationUser thisUser = _db.Users
-    //                   .Include(User => User.Books)
-    //                   .FirstOrDefault(user => user.Id == id);
-
-    //                   Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
-    //                   thisUser.Books.Add(thisBook);
-
-    //                   thisBook.Copies = (thisBook.Copies -1);
-    //                   _db.SaveChanges();
-
-
-    //             return RedirectToAction("Details", new {id = id});
-    // }y
-
-
         [AllowAnonymous]
     public ActionResult Checkout(int bookId)
     {
-      AppUserBook thisBook = _db.AppUserBooks
+      Book thisBook = _db.Books
 
                       .Include(user => user.ApplicationUser)
-                      .Include(book => book.Book)
-                      .ThenInclude(join => join.AuthorBooks)
+                      .ThenInclude(join => join.JoinEntites)
+                      .Include(join => join.AuthorBooks)
                       .ThenInclude(author => author.Author)
                       .FirstOrDefault(book => book.BookId == bookId);
       return View(thisBook);
     }
 
-    //     [AllowAnonymous]
-    // public ActionResult Checkout(string id, int bookId)
-    // {
-    //   // User thiUser = _db.Items.FirstOrDefault(items => items.ItemId == id);
-    //   // ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Title");
-    //   return View("Checkout", new {userId = id, bookId = bookId });
-    // }
-
     [HttpPost]
-    public ActionResult Checkout(Book book, string userId, DateTime CheckoutDate)
+    public ActionResult Checkout(Book book, string userId, DateTime CheckoutDate, int bookId)
     {
       #nullable enable
       AppUserBook? joinEntity = _db.AppUserBooks.FirstOrDefault(join => (join.UserID == userId && join.BookId == book.BookId));
+      Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
       #nullable disable
       if (joinEntity == null && userId != null)
       {
         _db.AppUserBooks.Add(new AppUserBook() { UserID = userId, BookId = book.BookId, CheckoutDate = CheckoutDate, DueDate = CheckoutDate.AddDays(14)});
+        thisBook.Copies = (thisBook.Copies -1);
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = userId});
     }  
+
+            [AllowAnonymous]
+    public ActionResult Return(int bookId)
+    {
+      Book thisBook = _db.Books
+
+                      .Include(user => user.ApplicationUser)
+                      .ThenInclude(join => join.JoinEntites)
+                      .Include(join => join.AuthorBooks)
+                      .ThenInclude(author => author.Author)
+                      .FirstOrDefault(book => book.BookId == bookId);
+      return View(thisBook);
+    }
+
+
+    [HttpPost]
+public ActionResult Return(Book book, string userId, DateTime ReturnDate, int bookId)
+{
+  #nullable enable
+  AppUserBook? joinEntity = _db.AppUserBooks.FirstOrDefault(join => (join.UserID == userId && join.BookId == book.BookId && !join.Returned));
+  Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
+
+  #nullable disable
+  if (joinEntity != null && userId != null)
+  {
+    joinEntity.Returned = true;
+    joinEntity.ReturnDate = ReturnDate;
+    thisBook.Copies = (thisBook.Copies + 1);
+    _db.SaveChanges();
+  }
+  return RedirectToAction("Details", new { id = userId});
+}
   }
 }
