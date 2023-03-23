@@ -8,7 +8,7 @@ namespace LibraryCatalog.Models
   {
     public virtual List<Book> Books { get; set; }
 
-    public List<BooksHistory> JoinEntites { get; }
+    public List<AppUserBook> JoinEntites { get; }
 
   }
 }

@@ -3,6 +3,7 @@ using System;
 using LibraryCatalog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCatalog.Migrations
 {
     [DbContext(typeof(LibraryCatalogContext))]
-    partial class LibraryCatalogContextModelSnapshot : ModelSnapshot
+    [Migration("20230323174646_joinTableNamedAppUserBookandUpdatedLibraryCatalogContext")]
+    partial class joinTableNamedAppUserBookandUpdatedLibraryCatalogContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

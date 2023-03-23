@@ -15,12 +15,15 @@
 <h3>Currently checked out books:</h3>
 
 
-@if (Model.Books.Count > 0)
+@if (Model.JoinEntites.Count > 0)
 {
 <ul>
-  @foreach (Book book in Model.Books)
+  @foreach (AppUserBook join in Model.JoinEntites)
   {
-    <li>@book.Title</li>
+    <li>@join.Book.Title
+      @join.CheckoutDate
+      @join.DueDate
+    </li>
   }
 </ul>}
 else

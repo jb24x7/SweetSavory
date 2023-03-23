@@ -6,6 +6,7 @@ using LibraryCatalog.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryCatalog.Controllers
 {
@@ -105,41 +106,60 @@ namespace LibraryCatalog.Controllers
     public ActionResult Details(string id)
     {
       ApplicationUser thisUser = _db.Users
-                      .Include(User => User.Books)
+                      .Include(User => User.JoinEntites)
+                      .ThenInclude(join => join.Book)
                       .FirstOrDefault(user => user.Id == id);
       return View(thisUser);
     }
 
-        public ActionResult Checkout(string id, int bookId)
-    {
-                      ApplicationUser thisUser = _db.Users
-                      .Include(User => User.Books)
-                      .FirstOrDefault(user => user.Id == id);
-
-                      Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
-                      thisUser.Books.Add(thisBook);
-
-                      thisBook.Copies = (thisBook.Copies -1);
-                      _db.SaveChanges();
-
-
-                return RedirectToAction("Details", new {id = id});
-    }
-
-    //     public ActionResult Return(string id, int bookId)
+    //     public ActionResult Checkout(string id, int bookId)
     // {
     //                   ApplicationUser thisUser = _db.Users
     //                   .Include(User => User.Books)
     //                   .FirstOrDefault(user => user.Id == id);
 
-    //                   Book thisBook = _db.BooksHistory.FirstOrDefault(book => book.BookId == bookId);
+    //                   Book thisBook = _db.Books.FirstOrDefault(book => book.BookId == bookId);
     //                   thisUser.Books.Add(thisBook);
 
-    //                   thisBook.Copies = (thisBook.Copies +1);
+    //                   thisBook.Copies = (thisBook.Copies -1);
     //                   _db.SaveChanges();
 
 
     //             return RedirectToAction("Details", new {id = id});
+    // }y
+
+
+        [AllowAnonymous]
+    public ActionResult Checkout(int bookId)
+    {
+      Book thisBook = _db.Books
+                      .Include(book => book.AuthorBooks)
+                      .ThenInclude(join => join.Author)
+                      .Include(user => user.ApplicationUser)
+                      .FirstOrDefault(book => book.BookId == bookId);
+      return View(thisBook);
+    }
+
+    //     [AllowAnonymous]
+    // public ActionResult Checkout(string id, int bookId)
+    // {
+    //   // User thiUser = _db.Items.FirstOrDefault(items => items.ItemId == id);
+    //   // ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Title");
+    //   return View("Checkout", new {userId = id, bookId = bookId });
     // }
+
+    [HttpPost]
+    public ActionResult Checkout(Book book, string userId)
+    {
+      #nullable enable
+      AppUserBook? joinEntity = _db.AppUserBooks.FirstOrDefault(join => (join.UserID == userId && join.BookId == book.BookId));
+      #nullable disable
+      if (joinEntity == null && userId != null)
+      {
+        _db.AppUserBooks.Add(new AppUserBook() { UserID = userId, BookId = book.BookId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = userId});
+    }  
   }
 }

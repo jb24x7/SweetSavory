@@ -5,19 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryCatalog.Models
 {
-  public class Book
+  public class AppUserBook
   {
-    public int BookId { get; set; }
-    
-    [Required(ErrorMessage = "Title can't be empty!")]
-    public string Title { get; set; }
-    public int Copies { get; set; }
-    public List<AuthorBook> AuthorBooks { get; }
+    public int AppUserBookId { get; set; }
     public string UserID { get; set; }
     [ForeignKey("UserID")]
     public virtual ApplicationUser ApplicationUser { get; set; }
-
-    public List<AppUserBook> JoinEntites { get; }
-
+    public int BookId { get; set; } 
+    public Book Book { get; set; }
+    public DateTime CheckoutDate { get; set; }
+    public DateTime DueDate { get; set; }
+    public DateTime ReturnDate { get; set; }
+    public Boolean Returned { get; set ; }
   }
 }

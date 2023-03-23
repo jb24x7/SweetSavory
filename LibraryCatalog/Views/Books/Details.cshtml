@@ -38,14 +38,16 @@
 <p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
 <div class="button-footer">
   
-  @if (Model.ApplicationUser.Books.Contains(Model)) 
+   <a href='@Url.Action("checkout", "Account", new {id = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId})'>Checkout Book</a>
+
+  @* @if (Model.ApplicationUser.Books.Contains(Model)) 
   {
     <a href='@Url.Action("Return", "Account", new {id = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId})'>Return Book</a>
   }
   else 
   {
   <a href='@Url.Action("Checkout", "Account", new {id = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId})'>Checkout Book</a>
-  }
+  } *@
   <button onclick="showModal('delete')" class="red">Delete Book</button>
 
   <a href='@Url.Action("Edit", new { id = Model.BookId })'>

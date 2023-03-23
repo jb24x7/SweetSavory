@@ -143,5 +143,7 @@ namespace LibraryCatalog.Controllers
       List<Book> model = _db.Books.Where(model => model.Title.Contains(queryString)).ToList();
       return View("Index", model);
     }
+
+
   }
 }
