@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace LibraryCatalog.Controllers
 {
@@ -132,10 +133,12 @@ namespace LibraryCatalog.Controllers
         [AllowAnonymous]
     public ActionResult Checkout(int bookId)
     {
-      Book thisBook = _db.Books
-                      .Include(book => book.AuthorBooks)
-                      .ThenInclude(join => join.Author)
+      AppUserBook thisBook = _db.AppUserBooks
+
                       .Include(user => user.ApplicationUser)
+                      .Include(book => book.Book)
+                      .ThenInclude(join => join.AuthorBooks)
+                      .ThenInclude(author => author.Author)
                       .FirstOrDefault(book => book.BookId == bookId);
       return View(thisBook);
     }
@@ -149,14 +152,14 @@ namespace LibraryCatalog.Controllers
     // }
 
     [HttpPost]
-    public ActionResult Checkout(Book book, string userId)
+    public ActionResult Checkout(Book book, string userId, DateTime CheckoutDate)
     {
       #nullable enable
       AppUserBook? joinEntity = _db.AppUserBooks.FirstOrDefault(join => (join.UserID == userId && join.BookId == book.BookId));
       #nullable disable
       if (joinEntity == null && userId != null)
       {
-        _db.AppUserBooks.Add(new AppUserBook() { UserID = userId, BookId = book.BookId });
+        _db.AppUserBooks.Add(new AppUserBook() { UserID = userId, BookId = book.BookId, CheckoutDate = CheckoutDate, DueDate = CheckoutDate.AddDays(14)});
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = userId});

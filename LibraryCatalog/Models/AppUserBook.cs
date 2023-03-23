@@ -17,5 +17,6 @@ namespace LibraryCatalog.Models
     public DateTime DueDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public Boolean Returned { get; set ; }
+
   }
 }

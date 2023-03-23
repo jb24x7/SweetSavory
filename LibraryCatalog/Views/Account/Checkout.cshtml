@@ -3,27 +3,23 @@
 }
 
 @using LibraryCatalog.Models
-@model LibraryCatalog.Models.Book
+@model LibraryCatalog.Models.AppUserBook
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
 <h3>Checkout Book</h3>
 
-<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
+<h3>@Html.DisplayNameFor(model => model.Book.Title): @Html.DisplayFor(model => model.Book.Title)</h3>
 
 
 <ul class="capsule-list">
     Author(s): 
-    @foreach (AuthorBook authorBook in Model.AuthorBooks) {
+    @foreach (AuthorBook authorBook in Model.Book.AuthorBooks) {
       <li>@authorBook.Author.FirstName @authorBook.Author.LastName</li>
     }
 @using (Html.BeginForm("Checkout", "Account", new { userId = SignInManager.UserManager.GetUserId(User), bookId = Model.BookId}, FormMethod.Post))
 {
-  
-  <div class="form-row">
-    <p>Checkout date: </p><br>
-    <input type="date">
-  </div>
+      @Html.EditorFor(model => model.CheckoutDate, new { htmlAttributes = new { @class = "form-control datepicker date-input", type = "date" } })
   
   <button class="green" type="submit">Check Out</button>
 }

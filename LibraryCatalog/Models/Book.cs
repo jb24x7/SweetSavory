@@ -16,7 +16,6 @@ namespace LibraryCatalog.Models
     public string UserID { get; set; }
     [ForeignKey("UserID")]
     public virtual ApplicationUser ApplicationUser { get; set; }
-
     public List<AppUserBook> JoinEntites { get; }
 
   }
