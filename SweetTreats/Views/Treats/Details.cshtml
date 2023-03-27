@@ -10,7 +10,7 @@
 <div id="delete-modal" class="modal obscured">
   <div class="modal-message">
     <span>Are you sure you want to delete</span>
-    <span class="highlighted">@Html.DisplayFor(model => model.Title)?</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Name)?</span>
   </div>
   <div class="button-area">
     @using (Html.BeginForm("Delete", "Treats", new { id = @Model.TreatId }))
@@ -23,10 +23,10 @@
   </div>
 </div>
 
-<h2>Treat Details for <span class="highlighted">@Html.DisplayFor(model => model.Title)</span></h2>
+<h2>Treat Details for <span class="highlighted">@Html.DisplayFor(model => model.Name)</span></h2>
 <hr />
 
-<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)<h3>
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h3>
 
 <ul class="capsule-list">
     Flavor(s): 
@@ -35,24 +35,15 @@
     }
 </ul>
 
-<p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
+
 <div class="button-footer">
   
-  @if (Model.ApplicationUser == null)
-  { 
-    <a href='@Url.Action("Return", "Account", new {id = SignInManager.UserManager.GetUserId(User), treatId = Model.TreatId})'>Return Treat</a>
-  @* }
-  else 
-  { *@
-  <a href='@Url.Action("checkout", "Account", new {id = SignInManager.UserManager.GetUserId(User), treatId = Model.TreatId})'>Checkout Treat</a>
-  } 
-
   <button onclick="showModal('delete')" class="red">Delete Treat</button>
 
   <a href='@Url.Action("Edit", new { id = Model.TreatId })'>
     <button>Edit Treat</button>
   </a>
-@* <p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p> *@
+
 
 
   <hr />

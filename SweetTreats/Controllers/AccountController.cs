@@ -106,8 +106,6 @@ namespace SweetTreat.Controllers
     public ActionResult Details(string id)
     {
       ApplicationUser thisUser = _db.Users
-                      .Include(User => User.JoinEntites)
-                      .ThenInclude(join => join.Treat)
                       .FirstOrDefault(user => user.Id == id);
       return View(thisUser);
     }

@@ -6,17 +6,16 @@
 
 <h2>Edit</h2>
 
-<h4>Edit this item: @Html.DisplayFor(model => model.Title)</h4>
+<h4>Edit this item: @Html.DisplayFor(model => model.Name)</h4>
 
 @using (Html.BeginForm())
 {
   @Html.HiddenFor(model => model.TreatId)
 
-  @Html.LabelFor(model => model.Title)
-  @Html.EditorFor(model => model.Title)
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
 
-  @Html.LabelFor(model => model.Copies)
-  @Html.EditorFor(model => model.Copies)
+
 
   @* @Html.DropDownList("FlavorId") *@
 

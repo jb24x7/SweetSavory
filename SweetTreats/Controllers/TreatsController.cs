@@ -54,8 +54,6 @@ namespace SweetTreat.Controllers
       Treat thisTreat = _db.Treats
                       .Include(treat => treat.FlavorTreats)
                       .ThenInclude(join => join.Flavor)
-                      .Include(user => user.ApplicationUser)
-                      .ThenInclude(join => join.JoinEntites)
                       .FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
@@ -110,7 +108,7 @@ namespace SweetTreat.Controllers
     public ActionResult AddTreat(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(flavors => flavors.TreatId == id);
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Title");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       return View(thisTreat);
     }
 
@@ -138,12 +136,7 @@ namespace SweetTreat.Controllers
     } 
 
  
-    [HttpPost]
-    public ActionResult Find(string queryString)
-    {
-      List<Treat> model = _db.Treats.Where(model => model.Title.Contains(queryString)).ToList();
-      return View("Index", model);
-    }
+
 
 
   }

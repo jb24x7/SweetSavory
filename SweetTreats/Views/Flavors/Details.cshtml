@@ -35,7 +35,7 @@
     @foreach (FlavorTreat flavorTreat in Model.FlavorTreats) {
         <a href='@Url.Action("Details", "Treats", new { id = flavorTreat.Treat.TreatId})'>
         <li class="flavor-treat-list-item">
-          @flavorTreat.Treat.Title
+          @flavorTreat.Treat.Name
         </li>
         </a>
     }
