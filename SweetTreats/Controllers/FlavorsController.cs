@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
-  [Authorize(Roles = "Admin")]
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly SweetTreatContext _db;
@@ -118,12 +118,12 @@ namespace SweetTreat.Controllers
     } 
 
 
-    [AllowAnonymous]
     [HttpPost]
     public ActionResult Find(string queryString)
     {
       List<Flavor> model = _db.Flavors
-                          .Where model.Taste.Contains(queryString)
+                          .Where model.Taste
+                          .Contains(queryString)
                           .ToList();
         return View("Index", model);
     }

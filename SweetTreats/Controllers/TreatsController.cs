@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
-  [Authorize(Roles = "Admin")]
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly SweetTreatContext _db;
@@ -18,7 +18,7 @@ namespace SweetTreat.Controllers
       _db = db;
     }
 
-    [AllowAnonymous]
+
     public ActionResult Index()
     {
       List<Treat> model = _db.Treats
@@ -48,7 +48,7 @@ namespace SweetTreat.Controllers
         return RedirectToAction("Index");
       }
     }
-    [AllowAnonymous]
+
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats
@@ -137,7 +137,7 @@ namespace SweetTreat.Controllers
       return RedirectToAction("Index");
     } 
 
-    [AllowAnonymous]
+ 
     [HttpPost]
     public ActionResult Find(string queryString)
     {
