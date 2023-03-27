@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using SweetTreat.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
+    [Authorize]
   public class RoleController : Controller
   {
     private RoleManager<IdentityRole> roleManager;

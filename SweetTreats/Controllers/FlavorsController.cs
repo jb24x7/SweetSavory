@@ -18,7 +18,6 @@ namespace SweetTreat.Controllers
       _db = db;
     }
 
-    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Flavor> model = _db.Flavors
@@ -45,7 +44,6 @@ namespace SweetTreat.Controllers
         return RedirectToAction("Index");
       }
     }
-    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors

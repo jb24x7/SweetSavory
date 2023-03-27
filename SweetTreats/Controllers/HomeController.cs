@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using SweetTreat.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
+  [Authorize]
   public class HomeController : Controller
   {
     private readonly SweetTreatContext _db;
