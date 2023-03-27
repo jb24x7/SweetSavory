@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreat.Models.Flavor
+
+<h3>Add a new Flavor</h3>
+
+@using (Html.BeginForm())
+{
+  <div class="form-row">
+    @Html.LabelFor(model => model.Taste, "First name") @Html.TextBoxFor(model => model.Taste)
+  </div>
+  <div class="form-row">
+    @Html.LabelFor(model => model.LastName, "Last name") @Html.TextBoxFor(model => model.LastName)
+  </div>
+
+  <button class="green" type="submit">Add new Flavor</button>
+}
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all Flavors</button>
+  </a>
+</div>

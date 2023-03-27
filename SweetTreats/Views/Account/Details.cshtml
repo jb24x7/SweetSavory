@@ -1,0 +1,63 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreat.Models.ApplicationUser
+
+
+@using Microsoft.AspNetCore.Identity
+@using SweetTreat.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+<h3>Hello @User.Identity.Name with the id @SignInManager.UserManager.GetUserId(User)</h3>
+
+
+<h3>Currently checked out treats:</h3>
+
+
+@if (Model.JoinEntites.Count > 0)
+{
+<ul>
+  @foreach (AppUserTreat join in Model.JoinEntites)
+  {
+    @if(!join.Returned){
+    <li>@join.Treat.Title
+      || Checkout date: @join.CheckoutDate.ToShortDateString()
+      || Due date: @join.DueDate.ToShortDateString()
+    </li>
+    }
+  }
+</ul>}
+else
+{
+  <h3>No Treats have been checked out!</h3>
+}
+
+<h3>Treat history:</h3>
+
+@if (Model.JoinEntites.Count > 0)
+{
+<ul>
+  @foreach (AppUserTreat join in Model.JoinEntites)
+  {
+    @if(join.Returned){
+    <li>@join.Treat.Title
+      || Return date: @join.ReturnDate.ToShortDateString()
+    </li>
+    }
+  }
+</ul>}
+else
+{
+  <h3>No Treats have been checked out!</h3>
+}
+
+
+
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all treats</button>
+  </a>
+</div>

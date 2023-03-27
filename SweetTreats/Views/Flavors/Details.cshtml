@@ -1,0 +1,61 @@
+@{
+  Layout = "_Layout";
+}
+
+@using SweetTreat.Models
+@model SweetTreat.Models.Flavor
+
+<div id="delete-modal" class="modal obscured">
+  <div class="modal-message">
+    <span>Are you sure you want to delete</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)?</span>
+  </div>
+  <div class="button-area">
+    @using (Html.BeginForm("Delete", "Flavors", new { id = @Model.FlavorId }))
+    {
+      <button class="red" type="submit">Delete</button>
+    }
+  </div>
+  <div class="button-area">
+    <button onclick="hideModal('delete')">Cancel</button>
+  </div>
+</div>
+
+<h2>Flavor Details for <span class="highlighted">@Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)</span></h2>
+<hr />
+
+<h3>Name: @Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)<h3>
+
+<h3>Treats:</h3>
+<ul class="flavor-treat-list">
+  @if(@Model.FlavorTreats.Count == 0)
+  {
+    <p class="empty-message">This Flavor does not have any Treats listed yet!</p>
+  } else {
+    @foreach (FlavorTreat flavorTreat in Model.FlavorTreats) {
+        <a href='@Url.Action("Details", "Treats", new { id = flavorTreat.Treat.TreatId})'>
+        <li class="flavor-treat-list-item">
+          @flavorTreat.Treat.Title
+        </li>
+        </a>
+    }
+  }
+  <a href='@Url.Action("AddTreat", new { id = Model.FlavorId })'>
+    <button class="green">Add a Treat for Flavor</button>
+  </a>
+</ul>
+
+<div class="button-footer">
+
+  <button onclick="showModal('delete')" class="red">Delete Flavor</button>
+
+  <a href='@Url.Action("Edit", new { id = Model.FlavorId })'>
+    <button>Edit Flavor</button>
+  </a>
+
+
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all Flavors</button>
+  </a>
+</div>

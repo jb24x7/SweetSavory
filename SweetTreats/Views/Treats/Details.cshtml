@@ -1,0 +1,62 @@
+@{
+  Layout = "_Layout";
+}
+
+@using SweetTreat.Models
+@model SweetTreat.Models.Treat
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<div id="delete-modal" class="modal obscured">
+  <div class="modal-message">
+    <span>Are you sure you want to delete</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Title)?</span>
+  </div>
+  <div class="button-area">
+    @using (Html.BeginForm("Delete", "Treats", new { id = @Model.TreatId }))
+    {
+      <button class="red" type="submit">Delete</button>
+    }
+  </div>
+  <div class="button-area">
+    <button onclick="hideModal('delete')">Cancel</button>
+  </div>
+</div>
+
+<h2>Treat Details for <span class="highlighted">@Html.DisplayFor(model => model.Title)</span></h2>
+<hr />
+
+<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)<h3>
+
+<ul class="capsule-list">
+    Flavor(s): 
+    @foreach (FlavorTreat flavorTreat in Model.FlavorTreats) {
+      <li><a href='@Url.Action("Details", "Flavors", new { id = flavorTreat.Flavor.FlavorId})'>@flavorTreat.Flavor.Taste @flavorTreat.Flavor.LastName</a></li>
+    }
+</ul>
+
+<p>Number of copies: @Html.DisplayFor(model => model.Copies) </p>
+<div class="button-footer">
+  
+  @if (Model.ApplicationUser == null)
+  { 
+    <a href='@Url.Action("Return", "Account", new {id = SignInManager.UserManager.GetUserId(User), treatId = Model.TreatId})'>Return Treat</a>
+  @* }
+  else 
+  { *@
+  <a href='@Url.Action("checkout", "Account", new {id = SignInManager.UserManager.GetUserId(User), treatId = Model.TreatId})'>Checkout Treat</a>
+  } 
+
+  <button onclick="showModal('delete')" class="red">Delete Treat</button>
+
+  <a href='@Url.Action("Edit", new { id = Model.TreatId })'>
+    <button>Edit Treat</button>
+  </a>
+@* <p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p> *@
+
+
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all Treats</button>
+  </a>
+</div>

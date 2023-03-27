@@ -1,0 +1,125 @@
+@{
+  Layout = "_Layout";
+}
+
+@using SweetTreat.Models
+
+@* <div id="register-modal" class="modal obscured">
+  <div class="modal-message">
+    <span>Register a new account</span>
+  </div>
+  <div class="button-area">
+    @using (Html.BeginForm("Delete", "Flavors", new { id = @Model.FlavorId }))
+    {
+      <button class="red" type="submit">Delete</button>
+    }
+  </div>
+  <div class="button-area">
+    <button onclick="hideModal('delete')">Cancel</button>
+  </div>
+</div> *@
+
+<div class="view-body home">
+
+<div class="home-list-area">
+  <div class="home-list">
+
+    @using (Html.BeginForm("Find", "Flavors", "post"))
+{
+  @Html.Label("Search Flavors by First or Last Name:")
+  <p>@Html.TextBox("queryString")</p>
+  <p><input type="submit" value="Submit" class="btn btn-default" /></p>
+}
+    <h2>All Flavors:</h2>
+    <ul class="simple-list">
+      @foreach (var flavor in ViewBag.Flavors) {
+        <li>
+          <div class="bold">@flavor.Taste @flavor.LastName</div>&nbsp;<div class="italic">@(
+            
+            $"{(flavor.FlavorTreats.Count == 0 ? "no treats" : flavor.FlavorTreats.Count > 1 ? $"{flavor.FlavorTreats.Count} treats" : $"{flavor.FlavorTreats.Count} treat")}"
+            
+          )</div>
+        </li>
+      }
+    </ul>
+  </div>
+  <div class="home-list">
+
+  @using (Html.BeginForm("Find", "Treats", "post"))
+{
+  @Html.Label("Search Treats:")
+  <p>@Html.TextBox("queryString")</p>
+  <p><input type="submit" value="Submit" class="btn btn-default" /></p>
+}
+
+    <h2>All Treats:</h2>
+    <table class="table table-sm table-bordered table-bordered text-white"></table>
+    <tr><th>Copies avail</th>&nbsp;<th>Title</th></tr>
+    
+    <br><br>
+      @foreach (var treat in ViewBag.Treats) {
+        <tr>
+          <td class="bold">@treat.Copies</td> 
+          <td>@treat.Title</td>
+          <div class="italic">
+            @if (treat.FlavorTreats.Count == 0) {
+              <span class="italic">(no flavors added!)</span>
+            } else {
+              @for (var i = 0; i < treat.FlavorTreats.Count; i++) {
+                @if (i == 0) { @(" by ") }
+                @($"{treat.FlavorTreats[i].Flavor.Taste} {treat.FlavorTreats[i].Flavor.LastName}")
+                @if (treat.FlavorTreats.Count > 1) { 
+                  if (i < treat.FlavorTreats.Count - 1) { 
+                    if (i == treat.FlavorTreats.Count - 2) { 
+                      @(" and ")
+                    } else { 
+                      @(", ")
+                    }
+                  }
+                }
+              } 
+            }
+          </div>
+        </tr>
+        <br>
+      }
+    
+    </table>
+  </div>
+</div>
+
+</div>
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@* <h3>Hello @User.Identity.Name with the id @SignInManager.UserManager.GetUserId(User) *@
+
+<p>
+  <a href='@Url.Action("Details", "Account", new {id = SignInManager.UserManager.GetUserId(User)})'>
+    <button class="green">Account Details</button>
+  </a>
+
+
+  <a href='@Url.Action("Index", "Role")'>
+    <button class="green">Roles</button>
+  </a>
+</p>
+
+
+<hr />
+<div class="home-footer">
+  <div class="button-area">
+    <a href='@Url.Action("Index", "Treats")'>
+      <button>Manage Treats</button>
+    <a href='@Url.Action("Index", "Flavors")'>
+      <button>Manage Flavors</button>
+    </a>
+  </div>
+
+  <div class="button-area">
+    <a href='@Url.Action("Index", "Account")'>
+      <button class="login">Create or manage an account</button>
+    </a>
+  </div>
+</div>
+

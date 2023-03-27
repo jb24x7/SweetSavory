@@ -1,0 +1,42 @@
+@{
+  Layout = "_Layout";
+}
+
+@using SweetTreat.Models
+@model SweetTreat.Models.Flavor
+
+<h3>Add a new Treat</h3>
+
+<div>@foreach(FlavorTreat treat in Model.FlavorTreats) {
+<div>treat from foreach loop is @treat.Treat.Title</div>
+  <p></p>
+}</div>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.FlavorId)
+
+  var counter=0;
+  foreach(var a in ViewBag.TreatId)
+  {
+    counter++;
+    break;
+  }
+  
+  @if(counter > 0){ // if at least one dropdown option exists
+    <div class="form-row">
+      @Html.Label("Select Treat")
+      @Html.DropDownList("TreatId")
+      <button class="green" type="submit">Save</button>
+    </div>
+  } else {
+    <div class="dropdown-empty-message">You must add a Treat to the database first!</div>
+  }
+}
+
+<div class="button-footer">
+  <hr />
+  <a href='@Url.Action("Index")'>
+    <button>Show all treats</button>
+  </a>
+</div>
