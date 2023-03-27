@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-<h4>Edit this flavor: @Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)</h4>
+<h4>Edit this flavor: @Html.DisplayFor(model => model.Taste)</h4>
 
 @using (Html.BeginForm())
 {
@@ -15,8 +15,6 @@
   @Html.LabelFor(model => model.Taste)
   @Html.EditorFor(model => model.Taste)
 
-  @Html.LabelFor(model => model.LastName)
-  @Html.EditorFor(model => model.LastName)
 
   <input type="submit" value="Save" />
 }

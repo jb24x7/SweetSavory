@@ -16,7 +16,7 @@
     <ul class="capsule-list">
       @foreach (Flavor flavor in Model)
       {
-        <li>@Html.ActionLink($"{flavor.Taste} {flavor.LastName}", "Details", new { id = flavor.FlavorId })</li>
+        <li>@Html.ActionLink($"{flavor.Taste}", "Details", new { id = flavor.FlavorId })</li>
       }
     </ul>
   }

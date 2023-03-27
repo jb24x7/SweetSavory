@@ -10,7 +10,8 @@ namespace SweetTreat.Models
 
     [Required(ErrorMessage = "First Name can't be empty!")]
     public string Taste { get; set; }
-}
+
 
     public List<FlavorTreat> FlavorTreats { get; }
+  }
 }

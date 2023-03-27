@@ -34,7 +34,7 @@
     <ul class="simple-list">
       @foreach (var flavor in ViewBag.Flavors) {
         <li>
-          <div class="bold">@flavor.Taste @flavor.LastName</div>&nbsp;<div class="italic">@(
+          <div class="bold">@flavor.Taste</div>&nbsp;<div class="italic">@(
             
             $"{(flavor.FlavorTreats.Count == 0 ? "no treats" : flavor.FlavorTreats.Count > 1 ? $"{flavor.FlavorTreats.Count} treats" : $"{flavor.FlavorTreats.Count} treat")}"
             
@@ -67,7 +67,7 @@
             } else {
               @for (var i = 0; i < treat.FlavorTreats.Count; i++) {
                 @if (i == 0) { @(" by ") }
-                @($"{treat.FlavorTreats[i].Flavor.Taste} {treat.FlavorTreats[i].Flavor.LastName}")
+                @($"{treat.FlavorTreats[i].Flavor.Taste}")
                 @if (treat.FlavorTreats.Count > 1) { 
                   if (i < treat.FlavorTreats.Count - 1) { 
                     if (i == treat.FlavorTreats.Count - 2) { 

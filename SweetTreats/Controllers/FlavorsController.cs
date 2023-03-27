@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using SweetTreat.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Flavorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
-  [Flavorize(Roles = "Admin")]
+  [Authorize(Roles = "Admin")]
   public class FlavorsController : Controller
   {
     private readonly SweetTreatContext _db;
@@ -123,7 +123,7 @@ namespace SweetTreat.Controllers
     public ActionResult Find(string queryString)
     {
       List<Flavor> model = _db.Flavors
-                          .Where(model => model.LastName.Contains(queryString) || model.Taste.Contains(queryString))
+                          .Where model.Taste.Contains(queryString)
                           .ToList();
         return View("Index", model);
     }

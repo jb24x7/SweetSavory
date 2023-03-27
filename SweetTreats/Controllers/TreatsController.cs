@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using SweetTreat.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Flavorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SweetTreat.Controllers
 {
-  [Flavorize(Roles = "Admin")]
+  [Authorize(Roles = "Admin")]
   public class TreatsController : Controller
   {
     private readonly SweetTreatContext _db;

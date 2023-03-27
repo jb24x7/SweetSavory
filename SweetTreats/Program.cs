@@ -49,7 +49,7 @@ namespace SweetTreat
       app.UseRouting();
 
       app.UseAuthentication(); 
-      app.UseFlavorization();
+      app.UseAuthorization();
 
       app.MapControllerRoute(
           name: "default",

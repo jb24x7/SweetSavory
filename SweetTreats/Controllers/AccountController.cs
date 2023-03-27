@@ -6,7 +6,7 @@ using SweetTreat.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Flavorization;
+using Microsoft.AspNetCore.Authorization;
 using System;
 
 namespace SweetTreat.Controllers

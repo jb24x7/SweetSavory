@@ -31,7 +31,7 @@
 <ul class="capsule-list">
     Flavor(s): 
     @foreach (FlavorTreat flavorTreat in Model.FlavorTreats) {
-      <li><a href='@Url.Action("Details", "Flavors", new { id = flavorTreat.Flavor.FlavorId})'>@flavorTreat.Flavor.Taste @flavorTreat.Flavor.LastName</a></li>
+      <li><a href='@Url.Action("Details", "Flavors", new { id = flavorTreat.Flavor.FlavorId})'>@flavorTreat.Flavor.Taste</a></li>
     }
 </ul>
 

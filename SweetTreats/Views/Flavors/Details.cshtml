@@ -8,7 +8,7 @@
 <div id="delete-modal" class="modal obscured">
   <div class="modal-message">
     <span>Are you sure you want to delete</span>
-    <span class="highlighted">@Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)?</span>
+    <span class="highlighted">@Html.DisplayFor(model => model.Taste)?</span>
   </div>
   <div class="button-area">
     @using (Html.BeginForm("Delete", "Flavors", new { id = @Model.FlavorId }))
@@ -21,10 +21,10 @@
   </div>
 </div>
 
-<h2>Flavor Details for <span class="highlighted">@Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)</span></h2>
+<h2>Flavor Details for <span class="highlighted">@Html.DisplayFor(model => model.Taste)</span></h2>
 <hr />
 
-<h3>Name: @Html.DisplayFor(model => model.Taste) @Html.DisplayFor(model => model.LastName)<h3>
+<h3>Name: @Html.DisplayFor(model => model.Taste)<h3>
 
 <h3>Treats:</h3>
 <ul class="flavor-treat-list">
